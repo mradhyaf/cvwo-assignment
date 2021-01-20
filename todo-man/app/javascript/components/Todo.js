@@ -1,19 +1,31 @@
-import React from 'react';
+import React, { useState } from 'react';
+import axios from 'axios';
 
-// props: todo from List, toggleComplete from List
 function Todo(props) {
-  // console.log(props.todo.name)
+  const removeTodo = (todoId) => {
+    axios.delete(`/todos/${todoId}.json`);
+  }
+
+  const toggleCompletion = (id) => {
+    axios.get(`/todos/${id}.json`)
+      .then(response => {
+        const newCompletion = !response.data.completion;
+        axios.patch(`/todos/${id}.json`, {completion: newCompletion});
+      });
+  }
+
   const handleCheck = () => {
-    props.toggleComplete(props.todo.id);
+    toggleCompletion(props.todo.id);
   }
   
   const handleRemove = () => {
-    props.removeTodo(props.todo.id);
+    removeTodo(props.todo.id);
   }
+
   return (
       <div className="todo-item">
         <p>{props.todo.name}</p>
-        <input type="checkbox" checked={props.todo.complete} onChange={handleCheck}/>
+        <input type="checkbox" checked={props.todo.completion} onChange={handleCheck}/>
         <button type="button" onClick={handleRemove}>Delete</button>
       </div>
   )

@@ -1,8 +1,6 @@
 Rails.application.routes.draw do
-  root 'pages#index'
-
   resources :todos
-
-  get '*path', to: 'pages#index', via: :all
+  root 'home#index'
+  get '*path', to: 'home#index', via: :all
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
 end

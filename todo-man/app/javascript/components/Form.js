@@ -1,18 +1,31 @@
 import React, { useState } from "react";
+import axios from 'axios';
 
-// props: createTodo from App
 function Form(props) {
   const [newTodo, setNewTodo] = useState('');
 
+  const createTodo = (todoName) => {
+    const todo = {
+      name: todoName,
+      completion: false
+    };
+    
+    // const csrfToken = document.querySelector('[name=csrf-token]').content
+    // axios.defaults.headers.post['X-CSRF-Token'] = csrfToken
+
+    axios.post('/todos.json', todo )
+    .then(response => {
+      console.log(response);
+    });
+  }
+
   const handleChange = (event) => {
-    console.log('change')
     setNewTodo(event.target.value);
   }
 
   const handleSubmit = (event) => {
-    console.log('submit');
     event.preventDefault();
-    props.createTodo(newTodo);  
+    createTodo(newTodo);  
     setNewTodo('');
   }
 

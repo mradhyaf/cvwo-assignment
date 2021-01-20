@@ -15,7 +15,7 @@ class TodosTest < ApplicationSystemTestCase
     click_on "New Todo"
 
     check "Completion" if @todo.completion
-    fill_in "Task", with: @todo.task
+    fill_in "Name", with: @todo.name
     click_on "Create Todo"
 
     assert_text "Todo was successfully created"
@@ -27,7 +27,7 @@ class TodosTest < ApplicationSystemTestCase
     click_on "Edit", match: :first
 
     check "Completion" if @todo.completion
-    fill_in "Task", with: @todo.task
+    fill_in "Name", with: @todo.name
     click_on "Update Todo"
 
     assert_text "Todo was successfully updated"

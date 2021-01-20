@@ -1,23 +1,26 @@
-import React from 'react';
+import React, {useState, useEffect} from 'react';
+import axios from 'axios';
 import Todo from './Todo';
 
-// props: todos from App
 function List(props) {
-  const todoList = props.todos.map((todo) => {
-    // console.log(todo);
+  const [todos, setTodos] = useState([]);
+
+  useEffect(() => {
+    axios.get('/todos.json')
+      .then( response => {
+        setTodos(response.data)
+      } )
+  });
+
+  const todoList = todos.map((todo) => {
     return (
-      <Todo key={todo.id} todo={todo} removeTodo={props.removeTodo} toggleComplete={props.toggleComplete} />
+      <Todo key={todo.id} todo={todo} />
     );
   })
-
-  const handleClear = (event) => {
-    props.clearTodos()
-  }
 
   return (
     <div className="todo-list">
       {todoList}
-      <button onClick={handleClear} >Clear</button>
     </div>
   )
 }

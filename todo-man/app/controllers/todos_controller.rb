@@ -1,10 +1,11 @@
 class TodosController < ApplicationController
+  skip_before_action :verify_authenticity_token
   before_action :set_todo, only: [:show, :edit, :update, :destroy]
 
   # GET /todos
   # GET /todos.json
   def index
-    @todos = Todo.all
+    @todos = Todo.all.order(id: :desc)
   end
 
   # GET /todos/1
@@ -69,6 +70,6 @@ class TodosController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def todo_params
-      params.require(:todo).permit(:task, :completion)
+      params.permit(:name, :completion)
     end
 end
