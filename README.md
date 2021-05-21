@@ -1,4 +1,3 @@
-# cvwo-assignment
+# todo-manager
 
-Name: Muhammad Radhya Fawza\
-NUS Matriculation Number: A0219709W
+A simple to-do list built with React.js
